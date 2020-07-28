@@ -15,3 +15,15 @@ app.post('/', function(req, res){
                 console.log(`stderr: ${stderr}`);
                 return;
         }
+
+        console.log(`stdout: ${stdout}`);
+
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
+    res.json({ received: true });
+});
+
+app.listen(8080, '127.0.0.1');
