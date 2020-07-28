@@ -136,7 +136,7 @@ npm WARN server No license field.
 added 50 packages from 37 contributors and audited 50 packages in 3.946s
 found 0 vulnerabilities
 ```
-3. Setup [app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the `playbook.yml` file from a GitHub repository. 
+3. Setup [app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the [verify-apache.xml](https://github.com/juliehub/Ansible-Practice/blob/master/verify-apache.yml) file from a GitHub repository. 
 
 ```python
 var express = require('express');
@@ -147,7 +147,7 @@ const exec = util.promisify(require('child_process').exec);
 app.post('/', function(req, res){
     try {
         console.log('executing deployment...');
-        exec("ansible-pull -U git@github.com:<GitHubUser>/<repo-name>.git <playbook>.yml", (error, stdout, stderr) => {
+        exec("ansible-pull -U git@github.com:juliehub/Ansible-Practice.git verify-apache.yml", (error, stdout, stderr) => {
                 if (error) {
                 console.log(`error: ${error.message}`);
                 return;
