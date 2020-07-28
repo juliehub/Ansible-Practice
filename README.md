@@ -76,7 +76,6 @@ Installing:
  git                       x86_64               2.23.3-1.amzn2.0.1                    amzn2-core                    135 k
 ...
 ```
-
 ### Step 2. Install Node.js and set up the Express server
 1. **Install Node.js**
 ```python
@@ -136,6 +135,7 @@ npm WARN server No license field.
 added 50 packages from 37 contributors and audited 50 packages in 3.946s
 found 0 vulnerabilities
 ```
+
 3. Setup [/home/ec2-user/server/app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the playbook [local.yml](https://github.com/juliehub/Ansible-Practice/blob/master/local.yml) file from a GitHub repository. 
 
 The server is configured to listen on port **8080** because the NGINX configuration needs to know where to route the traffic that it receives. 
@@ -171,66 +171,8 @@ app.post('/', function(req, res){
 
 app.listen(8080, '127.0.0.1');
 ```
-4. Clone that repository to your local working directory and create a playbook `local.yml`
-```python
-[ec2-user@ip-172-31-35-226 ~]$ pwd
-/home/ec2-user
-[ec2-user@ip-172-31-35-226 ~]$ git clone git@github.com:juliehub/Ansible-Practice.git
-Cloning into 'Ansible-Practice'...
-remote: Enumerating objects: 68, done.
-remote: Counting objects: 100% (68/68), done.
-remote: Compressing objects: 100% (68/68), done.
-remote: Total 68 (delta 35), reused 0 (delta 0), pack-reused 0
-Receiving objects: 100% (68/68), 104.76 KiB | 263.00 KiB/s, done.
-Resolving deltas: 100% (35/35), done.
-```
-```python
-[ec2-user@ip-172-31-35-226 ~]$ cd Ansible-Practice/
-[ec2-user@ip-172-31-35-226 Ansible-Practice]$ vi local.yml
-[ec2-user@ip-172-31-35-226 Ansible-Practice]$ cat local.yml
-- hosts: localhost
-  become: true
-  tasks:
-  - name: Install packages
-    apt: name={{item}}
-    with_items:
-      - htop
-      - mc
-      - tmux
-```
-5. Commit `local.yml` to our respository
-```python
-[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git add local.yml
-[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git commit -m "add local.yml"
-[master 749befb] add local.yml
- Committer: EC2 Default User <ec2-user@ip-172-31-35-226.ap-southeast-2.compute.internal>
-Your name and email address were configured automatically based
-on your username and hostname. Please check that they are accurate.
-You can suppress this message by setting them explicitly. Run the
-following command and follow the instructions in your editor to edit
-your configuration file:
 
-    git config --global --edit
-
-After doing this, you may fix the identity used for this commit with:
-
-    git commit --amend --reset-author
-
- 1 file changed, 9 insertions(+)
- create mode 100644 local.yml
-[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git push origin master
-Warning: Permanently added the RSA host key for IP address '52.64.108.95' to the list of known hosts.
-Enumerating objects: 4, done.
-Counting objects: 100% (4/4), done.
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 407 bytes | 407.00 KiB/s, done.
-Total 3 (delta 1), reused 0 (delta 0)
-remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-To github.com:juliehub/Ansible-Practice.git
-   3fda52b..749befb  master -> master
-```
-
-6. Run the Express server.
+4. Run the Express server.
 ```python
 [ec2-user@ip-172-31-35-226 server]$ ls -l app.js
 -rw-rw-r-- 1 ec2-user ec2-user 762 Jul 28 06:04 app.js
@@ -280,8 +222,6 @@ ec2-user 21682     1  0 06:08 ?        00:00:00 ssh-agent -s
 [ec2-user@ip-172-31-35-226 .ssh]$ cat known_hosts
 github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
 ```
-
-
 ### Step 4. Configure NGINX to route traffic
 1. Use the following basic configuration to listen on port 80 and route traffic to the port that the Express server listens to.
 ```python
@@ -329,9 +269,68 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 /home/ec2-user/.ssh
 [ec2-user@ip-172-31-35-226 .ssh]$ cat id_rsa.pub
 ```
-3. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
+3. Clone that repository to your local working directory and create a playbook `local.yml`
+```python
+[ec2-user@ip-172-31-35-226 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-35-226 ~]$ git clone git@github.com:juliehub/Ansible-Practice.git
+Cloning into 'Ansible-Practice'...
+remote: Enumerating objects: 68, done.
+remote: Counting objects: 100% (68/68), done.
+remote: Compressing objects: 100% (68/68), done.
+remote: Total 68 (delta 35), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (68/68), 104.76 KiB | 263.00 KiB/s, done.
+Resolving deltas: 100% (35/35), done.
+```
+```python
+[ec2-user@ip-172-31-35-226 ~]$ cd Ansible-Practice/
+[ec2-user@ip-172-31-35-226 Ansible-Practice]$ vi local.yml
+[ec2-user@ip-172-31-35-226 Ansible-Practice]$ cat local.yml
+- hosts: localhost
+  become: true
+  tasks:
+  - name: Install packages
+    apt: name={{item}}
+    with_items:
+      - htop
+      - mc
+      - tmux
+```
+4. Commit `local.yml` to our respository
+```python
+[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git add local.yml
+[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git commit -m "add local.yml"
+[master 749befb] add local.yml
+ Committer: EC2 Default User <ec2-user@ip-172-31-35-226.ap-southeast-2.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
 
-4. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 9 insertions(+)
+ create mode 100644 local.yml
+[ec2-user@ip-172-31-35-226 Ansible-Practice]$ git push origin master
+Warning: Permanently added the RSA host key for IP address '52.64.108.95' to the list of known hosts.
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 407 bytes | 407.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:juliehub/Ansible-Practice.git
+   3fda52b..749befb  master -> master
+```
+
+5. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
+
+6. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
 This adds the webhook that is triggered when a push event occurs.
 When the webhook is created and a request is sent to the EC2 instance, 
 the Recent Deliveries section looks like this:
