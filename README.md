@@ -136,7 +136,7 @@ npm WARN server No license field.
 added 50 packages from 37 contributors and audited 50 packages in 3.946s
 found 0 vulnerabilities
 ```
-3. Setup [app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the [verify-apache.xml](https://github.com/juliehub/Ansible-Practice/blob/master/verify-apache.yml) file from a GitHub repository. 
+3. Setup [/home/ec2-user/server/app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the [verify-apache.xml](https://github.com/juliehub/Ansible-Practice/blob/master/verify-apache.yml) file from a GitHub repository. 
 
 The server is configured to listen on port **8080** because the NGINX configuration needs to know where to route the traffic that it receives. 
 
@@ -171,12 +171,101 @@ app.post('/', function(req, res){
 
 app.listen(8080, '127.0.0.1');
 ```
-
+4. Run the Express server.
+```python
+[ec2-user@ip-172-31-35-226 server]$ ls -l app.js
+-rw-rw-r-- 1 ec2-user ec2-user 762 Jul 28 06:04 app.js
+[ec2-user@ip-172-31-35-226 server]$ node app.js
+```
 ### Step 3. Set up a deploy key for your repository
+1. Create an SSH key on your instance. In this example, replace <your_email@example.com> with your email address.
+```python
+[ec2-user@ip-172-31-35-226 ~]$ ssh-keygen -t rsa -b 4096 -C your_email@example.com
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ec2-user/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ec2-user/.ssh/id_rsa.
+Your public key has been saved in /home/ec2-user/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:mt6FIlZnlJZ48X/1pudLFok17rQ7fibgotFyPFA+bXk your_email@example.com
+The key's randomart image is:
++---[RSA 4096]----+
+|        .        |
+|       . =       |
+|      . * o    o.|
+|       + o o .+.+|
+|      . S o =.E=o|
+|     . = = o.oooo|
+|    o + + *. ..=.|
+|   . o o =... +++|
+|      . o. .  .*=|
++----[SHA256]-----+
 
+```
+2. When the key is created, run the following code.
+```python
+[ec2-user@ip-172-31-35-226 ~]$ eval "$(ssh-agent -s)"
+Agent pid 21682
+[ec2-user@ip-172-31-35-226 ~]$ ps -ef|grep 21682|grep -v grep
+ec2-user 21682     1  0 06:08 ?        00:00:00 ssh-agent -s
+```
 ### Step 4. Configure NGINX to route traffic
+1. Use the following basic configuration to listen on port 80 and route traffic to the port that the Express server listens to.
+```python
+[ec2-user@ip-172-31-35-226 nginx]$ pwd
+/etc/nginx
+[ec2-user@ip-172-31-35-226 nginx]$ sudo cp -p nginx.conf nginx.conf.bak
+[ec2-user@ip-172-31-35-226 nginx]$ sudo vi nginx.conf
+```
+```python
+server {
+    listen       80 default_server;
+    listen       [::]:80 default_server;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+    }
+}
+```
+2. Start NGINX.
+```python
+[ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl start nginx
+[ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl enable nginx
+Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service to /usr/lib/systemd/system/nginx.service.
+```
 
 ### Step 5. Set up GitHub to configure the webhook
+1. Log in to your GitHub account, navigate to **Settings**, then **SSH and GPG Keys**
+2. Add **New SSH key**, copy and paste the public key from `/home/etc-user/.ssh/id_rsa.pub` to Github
+```python
+[ec2-user@ip-172-31-35-226 .ssh]$ pwd
+/home/ec2-user/.ssh
+[ec2-user@ip-172-31-35-226 .ssh]$ cat id_rsa.pub
+```
+3. Go to your Ansible repository, choose Add webhook on the Webhooks tab.
+
+4. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
+This adds the webhook that is triggered when a push event occurs.
+When the webhook is created and a request is sent to the EC2 instance, 
+the Recent Deliveries section looks like this:
+
+## Cleanup
+To remove your instance after provisioning the environment through the console, see Terminate your instance.
 
 # References:
 https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/
