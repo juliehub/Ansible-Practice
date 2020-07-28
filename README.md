@@ -16,7 +16,7 @@ This repository contains practice instructions on how to automate an Ansible pla
 ## Walkthrough
 ### Step 1: Set up webhook processing
 We use NGINX as a reverse proxy to route the request to an Express server.
-1. Connect to Ansible-Master EC2 instance, enable the Extra Packages for Enterprise Linux (EPEL) repository by running the following command.
+1. Connect to Ansible-Master EC2 instance, **enable the Extra Packages for Enterprise Linux (EPEL) repository** by running the following command.
 ```python
 [ec2-user@ip-172-31-35-226 ~]$ sudo amazon-linux-extras install epel
 Installing epel-release
@@ -32,11 +32,11 @@ Transaction Summary
 Install  1 Package
 ...
 ```
-2. Update all installed packages
+**2. Update all installed packages**
 ```python
 sudo yum update -y
 ```
-3. Install Ansible, NGINX, and Git
+**3. Install Ansible, NGINX, and Git**
 ```python
 [ec2-user@ip-172-31-35-226 ~]$ sudo yum install ansible -y
 Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
@@ -78,7 +78,7 @@ Installing:
 ```
 
 ### Step 2. Install Node.js and set up the Express server
-1. Node.js.
+1. **Install Node.js**
 ```python
 $ sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -117,7 +117,7 @@ Checksums matched!
 Now using node v14.6.0 (npm v6.14.6)
 Creating default alias: default -> node (-> v14.6.0)
 ```
-2. Choose a location for the Express server. In this example, we create a directory called `server` to store the relevant files.
+2. Choose a location for the Express server. In this example, we **create a directory called `server`** to store the relevant files.
 
 ```python
 $ pwd
@@ -178,7 +178,7 @@ app.listen(8080, '127.0.0.1');
 [ec2-user@ip-172-31-35-226 server]$ node app.js
 ```
 ### Step 3. Set up a deploy key for your repository
-1. Create an SSH key on your instance. In this example, replace <your_email@example.com> with your email address.
+1. **Create an SSH key** on your instance. In this example, replace <your_email@example.com> with your email address.
 ```python
 [ec2-user@ip-172-31-35-226 ~]$ ssh-keygen -t rsa -b 4096 -C your_email@example.com
 Generating public/private rsa key pair.
@@ -242,7 +242,7 @@ server {
     }
 }
 ```
-2. Start NGINX.
+2. **Start NGINX**
 ```python
 [ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl start nginx
 [ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl enable nginx
@@ -257,7 +257,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 /home/ec2-user/.ssh
 [ec2-user@ip-172-31-35-226 .ssh]$ cat id_rsa.pub
 ```
-3. Go to your Ansible repository, choose Add webhook on the Webhooks tab.
+3. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
 
 4. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
 This adds the webhook that is triggered when a push event occurs.
@@ -265,7 +265,7 @@ When the webhook is created and a request is sent to the EC2 instance,
 the Recent Deliveries section looks like this:
 
 ## Cleanup
-To remove your instance after provisioning the environment through the console, see Terminate your instance.
+To remove your instance after provisioning the environment through the console, see **Terminate** your instance.
 
 # References:
 https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/
