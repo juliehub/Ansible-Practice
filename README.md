@@ -211,7 +211,7 @@ Agent pid 21682
 [ec2-user@ip-172-31-35-226 ~]$ ps -ef|grep 21682|grep -v grep
 ec2-user 21682     1  0 06:08 ?        00:00:00 ssh-agent -s
 ```
-3. # Add GitHub to known_hosts
+3. Add GitHub to known_hosts
 ```python
 [ec2-user@ip-172-31-35-226 .ssh]$ pwd
 /home/ec2-user/.ssh
@@ -255,6 +255,7 @@ server {
 }
 ```
 2. **Start NGINX**
+
 ```python
 [ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl start nginx
 [ec2-user@ip-172-31-35-226 nginx]$ sudo systemctl enable nginx
