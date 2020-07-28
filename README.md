@@ -138,6 +138,8 @@ found 0 vulnerabilities
 ```
 3. Setup [app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the [verify-apache.xml](https://github.com/juliehub/Ansible-Practice/blob/master/verify-apache.yml) file from a GitHub repository. 
 
+The server is configured to listen on port **8080** because the NGINX configuration needs to know where to route the traffic that it receives. 
+
 ```python
 var express = require('express');
 var app = express();
@@ -156,6 +158,18 @@ app.post('/', function(req, res){
                 console.log(`stderr: ${stderr}`);
                 return;
         }
+
+        console.log(`stdout: ${stdout}`);
+
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
+    res.json({ received: true });
+});
+
+app.listen(8080, '127.0.0.1');
 ```
 
 ### Step 3. Set up a deploy key for your repository
