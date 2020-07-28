@@ -57,11 +57,11 @@ Installing:
 ...
 Dependencies Resolved
 
-===========================================================================================================================
- Package                             Arch              Version                             Repository                  Size
-===========================================================================================================================
+=========================================================================================================================
+ Package                           Arch              Version                             Repository                  Size
+=========================================================================================================================
 Installing:
- nginx                               x86_64            1:1.16.1-1.el7                      epel                       562 k
+ nginx                             x86_64            1:1.16.1-1.el7                      epel                       562 k
 ...
 ```
 
@@ -69,14 +69,52 @@ Installing:
 [ec2-user@ip-172-31-35-226 ~]$ sudo yum install git -y
 Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
 ...
-===========================================================================================================================
- Package                     Arch                 Version                               Repository                     Size
-===========================================================================================================================
+=========================================================================================================================
+ Package                   Arch                 Version                               Repository                     Size
+=========================================================================================================================
 Installing:
- git                         x86_64               2.23.3-1.amzn2.0.1                    amzn2-core                    135 k
+ git                       x86_64               2.23.3-1.amzn2.0.1                    amzn2-core                    135 k
 ...
 ```
 
+### Step 2. Install Node.js and set up the Express server
+1. Node.js.
+```python
+$ sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 13226  100 13226    0     0   461k      0 --:--:-- --:--:-- --:--:--  461k
+=> Downloading nvm from git to '/home/ec2-user/.nvm'
+=> Cloning into '/home/ec2-user/.nvm'...
+remote: Enumerating objects: 278, done.
+remote: Counting objects: 100% (278/278), done.
+remote: Compressing objects: 100% (245/245), done.
+remote: Total 278 (delta 32), reused 95 (delta 20), pack-reused 0
+Receiving objects: 100% (278/278), 142.15 KiB | 362.00 KiB/s, done.
+Resolving deltas: 100% (32/32), done.
+=> Compressing and cleaning up git repository
+
+=> Appending nvm source string to /home/ec2-user/.bashrc
+=> Appending bash_completion source string to /home/ec2-user/.bashrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+```
+```python
+$ . ~/.nvm/nvm.sh
+$ [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+$ [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+```
+```python
+```
+
+### Step 3. Set up a deploy key for your repository
+
+### Step 4. Configure NGINX to route traffic
+
+### Step 5. Set up GitHub to configure the webhook
 
 # References:
 https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/
