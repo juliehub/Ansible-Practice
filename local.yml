@@ -6,4 +6,4 @@
     with_items:
       - htop
       - mc
-      - tmux
+
