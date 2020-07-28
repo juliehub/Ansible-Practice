@@ -108,6 +108,33 @@ $ [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 $ [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 ```
 ```python
+$ nvm install node
+Downloading and installing node v14.6.0...
+Downloading https://nodejs.org/dist/v14.6.0/node-v14.6.0-linux-x64.tar.xz...
+################################################################################################################# 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v14.6.0 (npm v6.14.6)
+Creating default alias: default -> node (-> v14.6.0)
+```
+2. Choose a location for the Express server. In this example, we create a directory called `server` to store the relevant files.
+
+```python
+$ pwd
+/home/ec2-user
+$ mkdir server && cd server
+$ npm install express
+npm WARN saveError ENOENT: no such file or directory, open '/home/ec2-user/server/package.json'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN enoent ENOENT: no such file or directory, open '/home/ec2-user/server/package.json'
+npm WARN server No description
+npm WARN server No repository field.
+npm WARN server No README data
+npm WARN server No license field.
+
++ express@4.17.1
+added 50 packages from 37 contributors and audited 50 packages in 3.946s
+found 0 vulnerabilities
 ```
 
 ### Step 3. Set up a deploy key for your repository
