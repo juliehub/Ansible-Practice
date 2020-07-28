@@ -1,5 +1,5 @@
 # Ansible-Practice
-This repository contains practice instructions how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub. Please refer to the link in [AWS Blog](https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/) for more details.
+This repository contains practice instructions on how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub. Please refer to the link in [AWS Blog](https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/) for more details.
 
 ## Process
 ![Alt Text](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_process.jpg)
@@ -135,6 +135,27 @@ npm WARN server No license field.
 + express@4.17.1
 added 50 packages from 37 contributors and audited 50 packages in 3.946s
 found 0 vulnerabilities
+```
+3. Setup [app.js](https://github.com/juliehub/Ansible-Practice/blob/master/app.js) that runs the `ansible-pull` command to pull and run the `playbook.yml` file from a GitHub repository. 
+
+```python
+var express = require('express');
+var app = express();
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+app.post('/', function(req, res){
+    try {
+        console.log('executing deployment...');
+        exec("ansible-pull -U git@github.com:<GitHubUser>/<repo-name>.git <playbook>.yml", (error, stdout, stderr) => {
+                if (error) {
+                console.log(`error: ${error.message}`);
+                return;
+        }
+        if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                return;
+        }
 ```
 
 ### Step 3. Set up a deploy key for your repository
