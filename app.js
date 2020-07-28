@@ -6,7 +6,7 @@ const exec = util.promisify(require('child_process').exec);
 app.post('/', function(req, res){
     try {
         console.log('executing deployment...');
-        exec("ansible-pull -U git@github.com:juliehub/Ansible-Practice.git verify-apache.yml", (error, stdout, stderr) => {
+        exec("ansible-pull -U git@github.com:juliehub/Ansible-Practice.git local.yml", (error, stdout, stderr) => {
                 if (error) {
                 console.log(`error: ${error.message}`);
                 return;
