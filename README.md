@@ -288,7 +288,9 @@ To github.com:juliehub/Ansible-Practice.git
    3fda52b..749befb  master -> master
 ```
 7. Clean up local repository
+```python
 [ec2-user@ip-172-31-35-226 ~]$ rm -R Ansible-Practice
+```
 
 8. Test `ansible-pull` command under ec2-user, ignore the WARNING for localhost
 ```python
