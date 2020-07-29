@@ -1,20 +1,8 @@
 ---
 - hosts: localhost
-  vars:
-    http_port: 90
-    max_clients: 200
   remote_user: ec2-user
   tasks:
   - name: ensure apache is at the latest version
     yum:
       name: httpd
       state: latest
-  - name: ensure apache is running
-    service:
-      name: httpd
-      state: started
-  handlers:
-    - name: restart apache
-      service:
-        name: httpd
-        state: restarted
