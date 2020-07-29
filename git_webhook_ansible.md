@@ -1,5 +1,5 @@
-# Ansible-Practice
-This repository contains practice instructions on how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub. Please refer to the link in [AWS Blogs](https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/) for more details.
+# Automate Ansible playbook deployment with Amazon EC2 and GitHub
+The following section contains practice instructions on how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub. Please refer to the link in [AWS Blogs](https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/) for more details.
 
 ## Process
 ![Alt Text](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_process.jpg)
@@ -462,8 +462,3 @@ ip-172-31-35-226           : ok=2    changed=0    unreachable=0    failed=0    s
 
 ## Cleanup
 To remove your instance after provisioning the environment through the console, see **Terminate** your instance.
-
-# References:
-https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/
-https://aws.amazon.com/blogs/apn/getting-started-with-ansible-and-dynamic-amazon-ec2-inventory-management/
-https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html
