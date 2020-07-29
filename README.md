@@ -305,7 +305,41 @@ remote: Resolving deltas: 100% (1/1), completed with 1 local object.
 To github.com:juliehub/Ansible-Practice.git
    3fda52b..749befb  master -> master
 ```
+7. Clean up local repository
+[ec2-user@ip-172-31-35-226 ~]$ rm -R Ansible-Practice
 
+8. Test `ansible-pull` command under ec2-user, ignore the WARNING for localhost
+```python
+[ec2-user@ip-172-31-35-226 .ssh]$ ansible-pull -U git@github.com:juliehub/Ansible-Practice.git local.yml
+Starting Ansible Pull at 2020-07-29 05:49:07
+/usr/bin/ansible-pull -U git@github.com:juliehub/Ansible-Practice.git local.yml
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+[WARNING]: Could not match supplied host pattern, ignoring: localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226.ap-southeast-2.compute.internal
+localhost | CHANGED => {
+    "after": "3aa9d9b19de8c027795a611e417c9f7d6a5bdcba",
+    "before": "d58808d4ddb21c3cde54517d1b063467240e97d7",
+    "changed": true,
+    "remote_url_changed": false
+}
+[WARNING]: Could not match supplied host pattern, ignoring: localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226.ap-southeast-2.compute.internal
+
+PLAY [localhost] ************************************************************************************************************************
+
+TASK [Gathering Facts] ******************************************************************************************************************
+[WARNING]: Platform linux on host ip-172-31-35-226 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+ok: [ip-172-31-35-226]
+
+TASK [ensure apache is at the latest version] *******************************************************************************************
+ok: [ip-172-31-35-226]
+
+PLAY RECAP ******************************************************************************************************************************
+ip-172-31-35-226           : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+```
 ### Step 4. Configure NGINX to route traffic
 1. Use the following basic configuration to listen on port 80 and route traffic to the port that the Express server listens to.
 ```python
