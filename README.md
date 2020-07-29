@@ -270,7 +270,15 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 /home/ec2-user/.ssh
 [ec2-user@ip-172-31-35-226 .ssh]$ cat id_rsa.pub
 ```
-3. Clone that repository to your local working directory and create a playbook `local.yml`
+3. Add github.com into known_hosts file
+```python
+[root@ip-172-31-35-226 .ssh]# ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
+# github.com:22 SSH-2.0-babeld-5a455904
+[root@ip-172-31-35-226 .ssh]# cat /root/.ssh/known_hosts
+github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+```
+
+4. Clone that repository to your local working directory and create a playbook `local.yml`
 ```python
 [ec2-user@ip-172-31-35-226 ~]$ pwd
 /home/ec2-user
@@ -314,7 +322,7 @@ Resolving deltas: 100% (35/35), done.
         name: httpd
         state: restarted
 ```
-4. Commit `local.yml` to our respository
+5. Commit `local.yml` to our respository
 ```python
 [ec2-user@ip-172-31-35-226 Ansible-Practice]$ git add local.yml
 [ec2-user@ip-172-31-35-226 Ansible-Practice]$ git commit -m "add local.yml"
@@ -346,9 +354,9 @@ To github.com:juliehub/Ansible-Practice.git
    3fda52b..749befb  master -> master
 ```
 
-5. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
+6. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
 
-6. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
+7. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
 This adds the webhook that is triggered when a push event occurs.
 When the webhook is created and a request is sent to the EC2 instance, 
 the Recent Deliveries section looks like this:
