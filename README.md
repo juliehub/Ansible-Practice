@@ -373,10 +373,83 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 
 3. Go to your Ansible repository, choose **Add webhook** on the Webhooks tab.
 
-4. Copy and paste your **EC2 instance’s public IP address** into the **Payload URL** section.
+4. Copy and paste your **EC2 instance’s public IP address** (e.g. http://3.25.168.204) into the **Payload URL** section.
 This adds the webhook that is triggered when a push event occurs.
 When the webhook is created and a request is sent to the EC2 instance, 
 the Recent Deliveries section looks like this:
+
+### Step 6. Make changes in playbook local.xml and test
+Modify the string "ensure apache is at the latest version 1" in local.xml to "ensure apache is at the latest version 2"
+```python
+executing deployment...
+stdout: Starting Ansible Pull at 2020-07-29 11:09:29
+/usr/bin/ansible-pull -U git@github.com:juliehub/Ansible-Practice.git local.yml
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+[WARNING]: Could not match supplied host pattern, ignoring:
+localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+.ap-southeast-2.compute.internal
+localhost | SUCCESS => {
+    "after": "b7a547bffaf4aaa36cd4067ccb045d7a5f03a2bd",
+    "before": "b7a547bffaf4aaa36cd4067ccb045d7a5f03a2bd",
+    "changed": false,
+    "remote_url_changed": false
+}
+[WARNING]: Could not match supplied host pattern, ignoring:
+localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+.ap-southeast-2.compute.internal
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host ip-172-31-35-226 is using the discovered
+Python interpreter at /usr/bin/python, but future installation of another
+Python interpreter could change this. See https://docs.ansible.com/ansible/2.9/
+reference_appendices/interpreter_discovery.html for more information.
+ok: [ip-172-31-35-226]
+
+TASK [ensure apache is at the latest version 1] ********************************
+ok: [ip-172-31-35-226]
+
+PLAY RECAP *********************************************************************
+ip-172-31-35-226           : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
+executing deployment...
+stdout: Starting Ansible Pull at 2020-07-29 11:10:23
+/usr/bin/ansible-pull -U git@github.com:juliehub/Ansible-Practice.git local.yml
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+[WARNING]: Could not match supplied host pattern, ignoring:
+localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+.ap-southeast-2.compute.internal
+localhost | CHANGED => {
+    "after": "9df49abdb59bdba744ee6f4e929ff7250c345d34",
+    "before": "b7a547bffaf4aaa36cd4067ccb045d7a5f03a2bd",
+    "changed": true,
+    "remote_url_changed": false
+}
+[WARNING]: Could not match supplied host pattern, ignoring:
+localhost.localdomain
+[WARNING]: Could not match supplied host pattern, ignoring: ip-172-31-35-226
+.ap-southeast-2.compute.internal
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host ip-172-31-35-226 is using the discovered
+Python interpreter at /usr/bin/python, but future installation of another
+Python interpreter could change this. See https://docs.ansible.com/ansible/2.9/
+reference_appendices/interpreter_discovery.html for more information.
+ok: [ip-172-31-35-226]
+
+TASK [ensure apache is at the latest version 2] ********************************
+ok: [ip-172-31-35-226]
+
+PLAY RECAP *********************************************************************
+ip-172-31-35-226           : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
 
 ## Cleanup
 To remove your instance after provisioning the environment through the console, see **Terminate** your instance.
