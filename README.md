@@ -249,30 +249,12 @@ Resolving deltas: 100% (35/35), done.
 [ec2-user@ip-172-31-35-226 Ansible-Practice]$ cat local.yml
 ---
 - hosts: localhost
-  vars:
-    http_port: 90
-    max_clients: 200
-  remote_user: root
+  remote_user: ec2-user
   tasks:
   - name: ensure apache is at the latest version
     yum:
       name: httpd
       state: latest
-  - name: write the apache config file
-    template:
-      src: /srv/httpd.j2
-      dest: /etc/httpd.conf
-    notify:
-    - restart apache
-  - name: ensure apache is running
-    service:
-      name: httpd
-      state: started
-  handlers:
-    - name: restart apache
-      service:
-        name: httpd
-        state: restarted
 ```
 6. Commit `local.yml` to our respository
 ```python
