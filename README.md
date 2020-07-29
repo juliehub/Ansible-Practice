@@ -11,7 +11,7 @@ This repository contains practice instructions on how to automate an Ansible pla
 - A GitHub repository to store [playbooks](https://github.com/juliehub/Ansible-Practice)
 - A security group that allows SSH (Secure Shell) and HTTPS access (To be more secured, edit the source IP with your own IP address for SSH rule)
 
-![Alt Text](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_sg.jpg)
+![Alt Text](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_sg1.jpg)
 
 ## Walkthrough
 ### Step 1: Set up webhook processing
