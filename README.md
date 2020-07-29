@@ -364,6 +364,13 @@ server {
 Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service to /usr/lib/systemd/system/nginx.service.
 ```
 
+3. Verify that Express server is working fine
+```python
+[ec2-user@ip-172-31-35-226 ~]$ curl -X POST http://127.0.0.1:8080
+{"received":true}
+[ec2-user@ip-172-31-35-226 ~]$ curl -X POST http://127.0.0.1
+{"received":true}
+```
 ### Step 5. Set up GitHub to configure the webhook
 1. Log in to your GitHub account, navigate to **Settings**, then **SSH and GPG Keys**
 2. Add **New SSH key**, copy and paste the public key from `/home/etc-user/.ssh/id_rsa.pub` to Github
