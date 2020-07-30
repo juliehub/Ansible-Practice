@@ -1,7 +1,7 @@
 ## Ansible-Practice
 
 ### Getting Started with Ansible and Dynamic Amazon EC2 Inventory Management
-This [guide](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_dynamicEC2.md) explains the steps to manage Amazon EC2 instances dynamically
+This [guide](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_dynamicEC2.md) explains the steps to manage Amazon EC2 instances dynamically.
 
 References
 1. https://aws.amazon.com/blogs/apn/getting-started-with-ansible-and-dynamic-amazon-ec2-inventory-management/
