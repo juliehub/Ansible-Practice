@@ -115,6 +115,14 @@ awscli 1.16.300 requires s3transfer<0.3.0,>=0.2.0, but you'll have s3transfer 0.
 Successfully installed boto3-1.14.31 botocore-1.17.31 s3transfer-0.3.3
 [ec2-user@ip-172-31-35-226 ~]$
 ```
+
+Verify python version:
+```python
+[ec2-user@ip-172-31-35-226 ansible]$ sudo rm /usr/bin/python
+[ec2-user@ip-172-31-35-226 ansible]$ sudo ln -s /usr/bin/python3 /usr/bin/python
+[ec2-user@ip-172-31-35-226 ansible]$ python --version
+Python 3.7.6
+```
 ### Step 2: Set environment variables needed for Boto
 
 ```python
@@ -136,7 +144,7 @@ $ export AWS_SECRET_ACCESS_KEY='YOUR_AWS_API_SECRET_KEY'
 $ export export AWS_REGION='ap-southeast-2'
 ```
 ### Step 3: Download EC2 external inventory script from Ansible to /etc/ansible/ec2.py and grant executable access
-Download [EC2 external inventory script] (https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.py).
+1. Download [EC2 external inventory script] (https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.py).
 This script generates inventory that Ansible can understand by making API request to AWS EC2 using the Boto library.
 
 ```python
@@ -145,6 +153,17 @@ This script generates inventory that Ansible can understand by making API reques
                                  Dload  Upload   Total   Spent    Left  Speed
 100 73130  100 73130    0     0  2645k      0 --:--:-- --:--:-- --:--:-- 2645k
 [ec2-user@ip-172-31-35-226 ansible]$ sudo chmod +x ec2.py
+```
+2. Copy the [ec2.ini](https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.ini) file to /etc/ansible/ec2.ini.
+[ec2-user@ip-172-31-35-226 ansible]$ sudo curl https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.ini --output /etc/ansible/ec2.ini
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  9529  100  9529    0     0  29051      0 --:--:-- --:--:-- --:--:-- 29051
+
+3. You can test the script by itself to make sure your config is correct:
+```python
+cd contrib/inventory
+./ec2.py --list
 ```
 ### Step 4: Set environment variables for the inventory management script
 1. Set `ANSIBLE_HOSTS` to use the dynamic EC2 script instead of a static /etc/ansible/hosts file.
@@ -173,7 +192,7 @@ Using an SSH agent is the best way to authenticate with your end nodes, as this 
 ```python
 [ec2-user@ip-172-31-35-226 .ssh]$ echo "$SSH_AUTH_SOCK"
 /tmp/ssh-eGOTjPALATYS/agent.8078
-[ec2-user@ip-172-31-35-226 .ssh]$ ssh-add julie2.pem
+[ec2-user@ip-172-31-35-226 .ssh]$ ssh-add julie.pem
 [ec2-user@ip-172-31-35-226 .ssh]$ ssh-add -L
 ```
 
