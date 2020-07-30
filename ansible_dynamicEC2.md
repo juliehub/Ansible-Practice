@@ -1,5 +1,12 @@
 ## Getting Started with Ansible and Dynamic Amazon EC2 Inventory Management
 
+### Step 1 to Step 4
+- Ansible is installed and has access to your Secret and Access key (via EC2 role or environment variable)
+- ec2.py inventory script is downloaded and ec2.ini is configured
+- ANSIBLE_HOSTS environment variable set
+- ansible.cfg exists
+- SSH agent is running (You can check with “ssh-add -L”)
+
 ### Step 1: Set environment variables needed for Boto
 
 ```python
