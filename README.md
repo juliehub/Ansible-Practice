@@ -1,6 +1,9 @@
 ## Ansible-Practice
 
 ### Getting Started with Ansible and Dynamic Amazon EC2 Inventory Management
+If you use Amazon Web Services EC2, maintaining an inventory file might not be the best approach,
+because hosts may come and go over time, be managed by external applications, or you might even be using AWS autoscaling. 
+
 This [guide](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_dynamicEC2.md) explains the steps to manage Amazon EC2 instances dynamically.
 
 References
