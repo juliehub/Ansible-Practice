@@ -15,4 +15,4 @@ References
 This [section](https://github.com/juliehub/Ansible-Practice/blob/master/git_webhook_ansible.md) contains instructions on how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub.
 
 References
-1. (https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/)
+1. https://aws.amazon.com/blogs/infrastructure-and-automation/automate-ansible-playbook-deployment-amazon-ec2-github/
