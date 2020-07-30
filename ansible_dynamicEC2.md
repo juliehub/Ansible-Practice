@@ -9,7 +9,7 @@
 - ansible.cfg exists
 - SSH agent is running (You can check with “ssh-add -L”)
 
-### Step 1: Install Python 3
+### Step 1: Install Python 3, PIP and Boto3
 ```python
 [ec2-user ~]$ yum list installed | grep -i python3
 ```
