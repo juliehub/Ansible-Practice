@@ -1,8 +1,6 @@
 # Getting Started with Ansible and Dynamic Amazon EC2 Inventory Management
 
 ## Download EC2 external inventory script from Ansible
-If you use Amazon Web Services EC2, maintaining an inventory file might not be the best approach, 
-because hosts may come and go over time, be managed by external applications, or you might even be using AWS autoscaling. 
 Download [EC2 external inventory script] (https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.py).
 This script generates inventory that Ansible can understand by making API request to AWS EC2 using the Boto library.
 
