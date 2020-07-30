@@ -2,7 +2,7 @@
 
 ### Summary of steps
 **Step 1 to Step 4**
-- Install python 3
+- Install python 3, pip and boto3
 - Ansible is installed and has access to your Secret and Access key (via EC2 role or environment variable)
 - ec2.py inventory script is downloaded and ec2.ini is configured
 - ANSIBLE_HOSTS environment variable set
@@ -167,5 +167,16 @@ Generates inventory that Ansible can understand by making API request to
 AWS EC2 using the Boto library.
 [ec2-user@ip-172-31-35-226 ansible]$
 ```
+3. Enable SSH agent forwarding
+SSH agent is a program that runs in the background and keeps your key loaded into memory, so that you don't need to enter your passphrase every time you need to use the key. 
+Using an SSH agent is the best way to authenticate with your end nodes, as this alleviates the need to copy your .pem files around. To [add an agent](https://developer.github.com/v3/guides/using-ssh-agent-forwarding/), do:
+```python
+[ec2-user@ip-172-31-35-226 .ssh]$ echo "$SSH_AUTH_SOCK"
+/tmp/ssh-eGOTjPALATYS/agent.8078
+[ec2-user@ip-172-31-35-226 .ssh]$ ssh-add julie2.pem
+[ec2-user@ip-172-31-35-226 .ssh]$ ssh-add -L
+```
+
+
 
 
