@@ -1,3 +1,4 @@
+## DO NOT USE THIS. The script ec2.py is obsolete because it uses python 2.7
 ## Getting Started with Ansible and Dynamic Amazon EC2 Inventory Management
 
 ### Summary of steps
