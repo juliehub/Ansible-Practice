@@ -10,7 +10,7 @@ References
 1. https://docs.ansible.com/ansible/latest/plugins/inventory/aws_ec2.html
 2. https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html
 
-## Provision AWS EC2 instances using Ansible
+### Provision AWS EC2 instances using Ansible
 
 This [section](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_provisionEC2.md) contains instructions on how to provision AWS EC2 instances using Ansible. See below link that I folowed to practice.
 
