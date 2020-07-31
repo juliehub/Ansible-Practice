@@ -10,6 +10,13 @@ References
 1. https://docs.ansible.com/ansible/latest/plugins/inventory/aws_ec2.html
 2. https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html
 
+## Provision AWS EC2 instances using Ansible
+
+This [section](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_provisionEC2.md) contains instructions on how to provision AWS EC2 instances using Ansible. See below link that I folowed to practice.
+
+References:
+1. https://medium.com/datadriveninvestor/devops-using-ansible-to-provision-aws-ec2-instances-3d70a1cb155f
+
 ### Automate Ansible playbook deployment with Amazon EC2 and GitHub
 This [section](https://github.com/juliehub/Ansible-Practice/blob/master/git_webhook_ansible.md) contains instructions on how to automate an Ansible playbook deployment using Amazon Elastic Compute Cloud (Amazon EC2) and GitHub.
 
