@@ -2,7 +2,7 @@
 
 ### Provision AWS EC2 instances using Ansible
 
-This [section](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_provisionEC2.md) contains instructions on how to provision AWS EC2 instances using Ansible. See below link that I folowed to practice.
+This [section](https://github.com/juliehub/Ansible-Practice/blob/master/ansible_provisionEC2.md) contains instructions on how to provision AWS EC2 instances using Ansible. See below link that I followed to practice.
 
 References:
 1. https://medium.com/datadriveninvestor/devops-using-ansible-to-provision-aws-ec2-instances-3d70a1cb155f
