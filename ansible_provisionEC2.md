@@ -111,7 +111,9 @@ ec2_secret_key: afjdfadgf$fgajk5ragesfjgjsfdbtirhf
 ```
 
 ### Step 6: Download playbook.yml
-Copy [playbook.yml](https://github.com/juliehub/Ansible-Practice/blob/master/playbook.yml) to /home/ec2-user/AWS_Ansible/playbook.yml
+Copy [playbook.yml](https://github.com/juliehub/Ansible-Practice/blob/master/playbook.yml) to /home/ec2-user/AWS_Ansible/playbook.yml.
+
+If you execute Ansible without the tags argument the creation tasks won’t be performed.
 
 ```python
 [ec2-user@ip-172-31-1-214 AWS_Ansible]$ ansible-playbook playbook.yml --ask-vault-pass
@@ -129,7 +131,72 @@ ok: [localhost] => (item={u'root_device_type': u'ebs', u'private_dns_name': u'ip
 ```
 
 ### Step 7: Run Ansible to provision the EC2 instance
+```python
+[ec2-user@ip-172-31-1-214 AWS_Ansible]$ ansible-playbook playbook.yml --ask-vault-pass --tags create_ec2
+Vault password:
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [localhost] ************************************************************************************************************************
+
+TASK [Get instances information] ********************************************************************************************************
+ok: [localhost]
+
+TASK [Instances ID] *********************************************************************************************************************
+ok: [localhost] => (item={u'root_device_type': u'ebs', u'private_dns_name': u'ip-172-31-1-214.ap-southeast-2.compute.internal', u'cpu_options': {u'threads_per_core': 1, u'core_count': 1}, u'security_groups': [{u'group_id': u'sg-035c6a8e5df7c0cff', u'group_name': u'launch-wi
+...
+
+
+
+TASK [Upload public key to AWS] *********************************************************************************************************
+changed: [localhost]
+
+TASK [Create security group] ************************************************************************************************************
+changed: [localhost]
+
+TASK [Provision instance(s)] ************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP ******************************************************************************************************************************
+localhost                  : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 ```
+### Step 8: Connect to the EC2 instance via SSH
+**1. Get public IP**
+```python
+[ec2-user@ip-172-31-1-214 AWS_Ansible]$ ansible-playbook playbook.yml --ask-vault-pass
+Vault password:
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
-### Connect to the EC2 instance via SSH
+PLAY [localhost] ************************************************************************************************************************
+
+TASK [Get instances information] ********************************************************************************************************
+ok: [localhost]
+
+TASK [Instances ID] *********************************************************************************************************************
+...
+...
+85'}], u'launch_time': u'2020-08-01T03:40:25+00:00', u'instance_id': u'i-08cb9f4caaf913d89', u'instance_type': u't2.micro', u'architecture': u'x86_64', u'ena_support': True, u'private_ip_address': u'172.31.11.216', u'vpc_id': u'vpc-9f85bef8', u'product_codes': []}) => {
+    "msg": "ID: i-08cb9f4caaf913d89 - State: running - Public DNS: ec2-54-253-20-33.ap-southeast-2.compute.amazonaws.com"
+}
+
+
+```
+**2. Connect to the EC2 instance via SSH**
+```python
+[ec2-user@ip-172-31-1-214 AWS_Ansible]$ ssh -i ~/.ssh/ansible_ec2 ec2-54-253-20-33.ap-southeast-2.compute.amazonaws.com
+The authenticity of host 'ec2-54-253-20-33.ap-southeast-2.compute.amazonaws.com (172.31.11.216)' can't be established.
+ECDSA key fingerprint is SHA256:OlTXQYo3JuSc2lDUeuWTv2QOE2s8FOq0QTFmrbx043Q.
+ECDSA key fingerprint is MD5:32:7f:19:41:03:45:06:d0:5a:c1:12:12:67:7f:f0:c7.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ec2-54-253-20-33.ap-southeast-2.compute.amazonaws.com,172.31.11.216' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+14 package(s) needed for security, out of 31 available
+Run "sudo yum update" to apply all updates.
+```
